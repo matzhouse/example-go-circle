@@ -3,7 +3,7 @@ jobs:
   build:
 
     # set working director based on gopath
-    working_directory: "/go/src/github.com/matzhouse/example-go-circle"
+    working_directory: "/go/src/$CIRCLE_REPOSITORY_URL"
 
     # set up a folder for test results
     environment:
@@ -16,6 +16,8 @@ jobs:
     # start build process
     steps:
       - checkout
+
+      - run: ls -lart
 
     # run unit tests
       - run: go test -v ./...
