@@ -18,14 +18,15 @@ jobs:
       - run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o cmd/example/example ./cmd/example/
 
       - run: mkdir -p $TEST_RESULTS
+
       - run:
           name: Run integration tests
-              command: |
+          command: |
                 ./cmd/example/example > ${TEST_RESULTS}/runTest
 
       - run: 
           name: Check test results
-              command: |
+          command: |
                 x = $(cat ${TEST_RESULTS}/runTest);
                 if [ "$x" != "Hello mat" ]; then
                   exit 1
