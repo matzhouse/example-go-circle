@@ -3,7 +3,7 @@ jobs:
   build:
 
     # set working director based on gopath
-    working_directory: "/go/src/$CIRCLE_REPOSITORY_URL"
+    working_directory: $(/go/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME)
 
     # set up a folder for test results
     environment:
