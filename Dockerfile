@@ -1,5 +1,5 @@
 FROM scratch
 
-ADD example /
+ADD cmd/example/example /
 
-CMD ["example"]
+CMD ["/example"]
