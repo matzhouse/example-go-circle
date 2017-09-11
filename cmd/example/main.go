@@ -2,10 +2,14 @@ package main
 
 import (
 	"fmt"
+
+	"github.com/matzhouse/example-go-circle/pkg/hello"
 )
 
 func main() {
 
-	fmt.Println("Hello example")
+	greet := hello.Hello("mat")
+
+	fmt.Println(greet)
 
 }
