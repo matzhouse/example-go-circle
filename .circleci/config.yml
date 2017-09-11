@@ -2,21 +2,29 @@ version: 2
 jobs:
   build:
 
+    # set working director based on gopath
     working_directory: "/go/src/github.com/matzhouse/example-go-circle"
 
+    # set up a folder for test results
     environment:
       TEST_RESULTS: /tmp/test-results
 
+    # use the go 1.9 container
     docker:
       - image: golang:1.9
 
+    # start build process
     steps:
       - checkout
 
+    # run unit tests
       - run: go test -v ./...
 
+    # build static binary
       - run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o cmd/example/example ./cmd/example/
 
+
+    # run some intergration tests
       - run: mkdir -p $TEST_RESULTS
 
       - run:
@@ -31,6 +39,9 @@ jobs:
                 if [ "$x" != "Hello mat" ]; then
                   exit 1
                 fi
+
+      # need to setup docker here for any docker commands that follow
+      - setup_remote_docker
 
       # build the docker image
       - run: docker build -t matzhouse/example-go-circle .
