@@ -12,5 +12,5 @@ jobs:
     steps:
       - checkout
 
+      - run: ls -lart
       - run: go test -v ./...
-      - run: go test -v ./cmd/...
