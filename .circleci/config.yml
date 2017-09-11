@@ -27,7 +27,7 @@ jobs:
       - run: 
           name: Check test results
           command: |
-                x = $(cat ${TEST_RESULTS}/runTest);
+                x=$(cat ${TEST_RESULTS}/runTest);
                 if [ "$x" != "Hello mat" ]; then
                   exit 1
                 fi
