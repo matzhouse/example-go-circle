@@ -1,13 +1,11 @@
 version: 2
 jobs:
   build:
-    docker:
-      - image: golang:1.9
 
     working_directory: /go/src/github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME
 
-    environment:
-      TEST_RESULTS: /tmp/test-results
+    docker:
+      - image: golang:1.9
 
     steps:
       - checkout
