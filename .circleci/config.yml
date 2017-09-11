@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
 
-    working_directory: "/go/src/github.com/matzhouse/example_go_circle"
+    working_directory: "/go/src/github.com/matzhouse/example-go-circle"
 
     docker:
       - image: golang:1.9
