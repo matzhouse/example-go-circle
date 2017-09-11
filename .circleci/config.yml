@@ -4,11 +4,37 @@ jobs:
 
     working_directory: "/go/src/github.com/matzhouse/example-go-circle"
 
+    environment:
+      TEST_RESULTS: /tmp/test-results
+
     docker:
       - image: golang:1.9
 
     steps:
       - checkout
 
-      - run: ls -lart && pwd
       - run: go test -v ./...
+
+      - run: CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o cmd/example/example ./cmd/example/
+
+      - run: mkdir -p $TEST_RESULTS
+      - run:
+          name: Run integration tests
+              command: |
+                ./cmd/example/example > ${TEST_RESULTS}/runTest
+
+      - run: 
+          name: Check test results
+              command: |
+                x = $(cat ${TEST_RESULTS}/runTest);
+                if [ "$x" != "Hello mat" ]; then
+                  exit 1
+                fi
+
+      # build the docker image
+      - run: docker build -t matzhouse/example-go-circle .
+
+
+      # save the go binary for ref
+      - store_artifacts:
+          path: /go/src/github.com/matzhouse/example-go-circle/cmd/example/example
